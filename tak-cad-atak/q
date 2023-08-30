@@ -1,0 +1,114 @@
+[33mcommit 0cd21c97440bc16987c016a9e1ce707bad4f0544[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/demo_4_14_22[m[33m, [m[1;32mdemo_4_14_22[m[33m)[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Wed Apr 13 14:37:19 2022 -0400
+
+    Added changes for DINO demo on 4/14/22
+
+[33mcommit 12bfa5b05e6e3a675890e24ab4a4cf5a79774139[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Wed Apr 13 09:34:29 2022 -0400
+
+    Fixed bug with rendering of number types
+
+[33mcommit c6d964d2024939ec08dacd5c6ea803520cafa4aa[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Mon Apr 4 12:12:54 2022 -0400
+
+    Updated DINO ATAK drop down to handle all JSON numeric types
+
+[33mcommit a35c76e0f8b59e03d6d1bf4525966784e96e4646[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Fri Apr 1 18:32:26 2022 -0400
+
+    Updated DINO atak drop down to handle boolean values in JSON backend, render them as checkboxes
+
+[33mcommit a1638495728181d20b8aa6e67137202dcb820ba5[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Mon Mar 28 13:49:42 2022 -0400
+
+    Increased font size, removed initial indent for fields to make space
+
+[33mcommit 7b30833bb601707e25e4b77986ba6b50f72240d0[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Mon Mar 28 13:43:53 2022 -0400
+
+    Made it so that single key value pairs are not collapsible in UI
+
+[33mcommit 2172e3d3b082d9fa58ac98422dd9cd5e5497a855[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Mon Mar 28 13:16:08 2022 -0400
+
+    Made editable text fields' ime option DONE
+
+[33mcommit 92dc83868cab184f389226f75046c35aa128b600[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Mon Mar 28 13:14:21 2022 -0400
+
+    Added other directories to git ignore file
+
+[33mcommit 226d00952b453f05ec2276c1f167de855f21c23b[m
+Merge: 7ffe32d 91f47f8
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Mon Mar 28 13:13:10 2022 -0400
+
+    Merge branch 'master' of git.tak.gov:dino/dino-atak
+
+[33mcommit 7ffe32d2a73c95d81d3e5a1234f54e867b019a44[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Mon Mar 28 12:46:00 2022 -0400
+
+    Updated drop down GUI to remove reset and set buttons, changes are now all saved when user presses "Save Changes" button
+
+[33mcommit 91f47f87d36a145261543387d4f938728edcabd9[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Mon Mar 28 12:46:00 2022 -0400
+
+    Updated drop down GUI to remove reset and set buttons, changes are now temporarily saved when user presses DONE key in android's keyboard
+
+[33mcommit fcdff369e544070252a991c3a29ed9a5f3971137[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Fri Mar 25 16:38:33 2022 -0400
+
+    Updated set and reset buttons to be below editable fields to save space
+
+[33mcommit d190fdc1711cf22e83c304df57ae79f29696314c[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Fri Mar 25 16:04:48 2022 -0400
+
+    Finished decoupling backend data format from Android view generation code via common displayable format, added ability to save edits to values
+
+[33mcommit 974a16a04acdc96b8e7ac7eaee174f6929d1471e[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Thu Mar 24 17:02:37 2022 -0400
+
+    Partial progress in refactoring code to decouple backend data format from code that converts data into Android views
+
+[33mcommit 05d0700101a2ab935715c1ace9e0e5b2ef4f37a6[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Thu Mar 24 13:26:50 2022 -0400
+
+    Updated DINO drop down to have collapsible metadata fields, added border around editable fields
+
+[33mcommit a3bf3b7a9ea12896444f36000453052393dbaa23[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Tue Mar 22 17:09:35 2022 -0400
+
+    Added initial implementation of JSON parsing and display
+
+[33mcommit bbbed28f8e0ed89627a3dbbc8639cd04b6a1ade0[m
+Author: Edward Lu <edward.lu@raytheon.com>
+Date:   Mon Mar 21 16:02:33 2022 -0400
+
+    Added DINO button to radial menu for CoT markers
+
+[33mcommit 7ce38216f5edd0871f61204b20ab0ee140a2ac5c[m
+Author: nsoule <nsoule@localhost.localdomain>
+Date:   Thu Jan 6 10:37:30 2022 -0500
+
+    Basic DINO ATAK plugin template
+
+[33mcommit 69f6dabaccac82f7793208929814b30776d81a9e[m
+Author: Nate Soule <nathaniel.soule@raytheon.com>
+Date:   Thu Sep 16 00:09:42 2021 +0000
+
+    Initial commit

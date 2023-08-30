@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">TAK CAD</string>
+    <string name="app_desc">ATAK Plugin to disseminate incident and incident responder information</string>
+    <string name="incident_creator_tab">Report Incident</string>
+    <string name="incident_viewer_tab">Active Incidents</string>
+    <string name="incident_specify_location">Specify Incident Location</string>
+    <string name="submit_button">Submit</string>
+    <string name="incident_title">Incident Title</string>
+    <string name="incident_summary">Incident Summary</string>
+    <string name="ors_api_key_entry_title">Open Route Service API Key:</string>
+    <string name="shared_preferences_file_name">com.atakmap.android.takcad.SharedPreferences</string>
+    <string name="ors_set_api_key_btn">Set Key</string>
+    <string name="ors_current_api_key">Current Open Route Service API Key:</string>
+</resources>

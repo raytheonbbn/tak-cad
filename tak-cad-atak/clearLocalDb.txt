@@ -1,0 +1,1 @@
+to clear the local database, you can go into your Android phone's "Internal Storage", and you should see three files "dino_rooms.db", "dino_rooms.db-shm", and "dino_rooms.db-wal" which you can delete.

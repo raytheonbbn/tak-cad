@@ -1,0 +1,308 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// PLUGIN_VERSION is the common version name when describing the plugin.
+// ATAK_VERSION   is for the version of ATAK this plugin should be compatible
+//                with some examples include 3.11.0, 3.11.0.civ 3.11.1.fvey
+//
+////////////////////////////////////////////////////////////////////////////////
+
+buildscript {
+
+    ext.PLUGIN_VERSION = "1.0"
+    ext.ATAK_VERSION = "4.9.0"
+
+    def takdevVersion = '2.+'
+
+    def getValueFromPropertiesFile = { propFile, key ->
+        if(!propFile.isFile() || !propFile.canRead())
+            return null
+        def prop = new Properties()
+        def reader = propFile.newReader()
+        try {
+            prop.load(reader)
+        } finally {
+            reader.close()
+        }
+        return prop.get(key)
+    }
+
+    def getProperty = { name, defValue ->
+        def prop = project.properties[name] ?:
+                getValueFromPropertiesFile(project.rootProject.file('local.properties'), name)
+        return (null == prop) ? defValue : prop
+    }
+
+    def urlKey = 'takrepo.url'
+
+    ext.isDevKitEnabled = { ->
+        return getProperty(urlKey, null) != null
+    }
+
+    ext.takrepoUrl = getProperty(urlKey, 'http://localhost/')
+    ext.takrepoUser = getProperty('takrepo.user', 'invalid')
+    ext.takrepoPassword = getProperty('takrepo.password', 'invalid')
+    ext.takdevPlugin = getProperty('takdev.plugin', "${rootDir}/../../atak-gradle-takdev.jar")
+
+    repositories {
+        google()
+        mavenCentral()
+
+        maven {
+            url "https://jitpack.io"
+        }
+        maven {
+            url = takrepoUrl
+            credentials {
+                username = takrepoUser
+                password = takrepoPassword
+            }
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.2.0'
+        //classpath 'com.android.tools.build:gradle:4.2.2'
+        if(isDevKitEnabled()) {
+            classpath "com.atakmap.gradle:atak-gradle-takdev:${takdevVersion}"
+        } else {
+            classpath files(takdevPlugin)
+        }
+    }
+}
+
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
+        mavenCentral()
+
+        maven {
+            url "https://jitpack.io"
+        }
+        flatDir {
+            dirs 'lib'
+        }
+
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'atak-takdev-plugin'
+
+android {
+    compileSdkVersion 31
+    buildToolsVersion "30.0.2"
+
+    useLibrary 'org.apache.http.legacy'
+
+    dexOptions {
+        jumboMode = true
+    }
+
+    lintOptions {
+        checkReleaseBuilds true
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("${buildDir}/android_keystore")
+            storePassword "tnttnt"
+            keyAlias "wintec_mapping"
+            keyPassword "tnttnt"
+        }
+        release {
+            storeFile file("${buildDir}/android_keystore")
+            storePassword "tnttnt"
+            keyAlias "wintec_mapping"
+            keyPassword "tnttnt"
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            matchingFallbacks = ['sdk']
+        }
+        release {
+            minifyEnabled true
+            proguardFile 'proguard-gradle.txt'
+            signingConfig signingConfigs.release
+            matchingFallbacks = ['odk']
+        }
+    }
+
+    flavorDimensions "application"
+
+    productFlavors {
+        mil {
+            getIsDefault().set(true)
+            dimension "application"
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".MIL"]
+        }
+        civ {
+            dimension "application"
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".CIV"]
+        }
+        aus {
+            dimension "application"
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".AUS"]
+        }
+        nzl {
+            dimension "application"
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".NZL"]
+        }
+        prt {
+            dimension "application"
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".PRT"]
+        }
+        est {
+            dimension "application"
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".EST"]
+        }
+        nor {
+            dimension "application"
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".NOR"]
+        }
+        hun {
+            dimension "application"
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".HUN"]
+        }
+        bel {
+            dimension "application"
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".BEL"]
+        }
+        swe {
+            dimension "application"
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".SWE"]
+        }
+        natosof {
+            dimension "application"
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".NATOSOF"]
+        }
+        gbr {
+            dimension "application"
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".GBR"]
+        }
+        gov {
+            dimension "application"
+            // GOV builds are just CIV api builds with additional information in the strings file 
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".CIV"]
+        }
+        can {
+            dimension "application"
+            manifestPlaceholders = [atakApiVersion: "com.atakmap.app@" + ATAK_VERSION + ".CAN"]
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/INDEX.LIST'
+        exclude 'META-INF/DEPENDENCIES'
+        pickFirst 'META-INF/androidx.*'
+        pickFirst '**/gluegen-rt.dll'
+        pickFirst '**/jogl_mobile.dll'
+        pickFirst '**/jogl_desktop.dll'
+        pickFirst '**/nativewindow_awt.dll'
+        pickFirst '**/nativewindow_win32.dll'
+        pickFirst '**/newt.dll'
+    }
+
+    sourceSets {
+        main {
+
+            // It is strongly encouraged that plugin developers do not modify the archiveBaseName, version code logic and version 
+            // name logic to provide for consistency within the community.   
+            setProperty("archivesBaseName", "ATAK-Plugin-" + rootProject.name + "-" + PLUGIN_VERSION + "-" + getVersionName() + "-" + ATAK_VERSION)
+            defaultConfig.versionCode = getVersionCode()
+            defaultConfig.versionName = PLUGIN_VERSION + " (" + getVersionName() + ") - [" + ATAK_VERSION + "]"
+
+        }
+
+        gov.java.srcDirs 'src/gov/java'
+        gov.assets.srcDir 'src/gov/assets'
+        gov.res.srcDir 'src/gov/res'
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+
+    }
+
+    defaultConfig {
+        minSdkVersion 24
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86"
+        }
+    }
+}
+
+ext {
+    swagger_annotations_version = "1.5.0"
+    gson_version = "2.3.1"
+    httpmime_version = "4.5.2"
+    httpcore_version = "4.4.4"
+    volley_version = "1.0.0"
+    junit_version = "4.12"
+    robolectric_version = "3.0"
+    concurrent_unit_version = "0.4.2"
+}
+
+dependencies {
+    implementation fileTree(dir: 'lib', include: '*.jar')
+    implementation 'com.google.android.material:material:1.6.0'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.13.2'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.2.2'
+    // https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api
+    implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+    // https://mvnrepository.com/artifact/org.locationtech.jts/jts-core
+    //implementation group: 'org.locationtech.jts', name: 'jts-core', version: '1.18.2'
+    implementation 'com.android.volley:volley:1.2.0'
+    implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.7.1'
+
+    implementation "io.swagger:swagger-annotations:$swagger_annotations_version"
+    implementation "com.google.code.gson:gson:$gson_version"
+    implementation ("org.apache.httpcomponents:httpmime:$httpmime_version") {
+        exclude group: 'org.apache.http'
+    }
+    implementation "com.android.volley:volley:${volley_version}"
+    implementation ("com.github.skydoves:colorpickerview:2.2.4") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+
+    //}
+    implementation files('lib/bbn-atak-utils-debug.aar')
+    implementation files('lib/atak-trigger-action-debug.aar')
+    implementation files('lib/atak-osppre-shared-1.0.0.aar')
+
+    // https://mvnrepository.com/artifact/joda-time/joda-time
+    implementation group: 'joda-time', name: 'joda-time', version: '2.3'
+
+
+    // Recyclerview version depends on some androidx libraries which
+    // are supplied by core, so they should be excluded.  Otherwise
+    // bad things happen in the release builds after proguarding
+    implementation ('androidx.recyclerview:recyclerview:1.1.0') {
+        exclude module: 'collection'
+        exclude module: 'core'
+        exclude module: 'lifecycle'
+        exclude module: 'core-common'
+        exclude module: 'collection'
+        exclude module: 'customview'
+    }
+    // ** End ExCheck
+}
+
+configurations {
+    all*.exclude group: 'com.google.code.gson', module: 'gson'
+    all*.exclude group: 'io.swagger', module: 'swagger-annotations'
+    all*.exclude group: 'com.google.guava', module: 'listenablefuture'
+}
