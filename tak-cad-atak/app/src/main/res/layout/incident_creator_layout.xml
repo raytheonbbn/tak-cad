@@ -8,7 +8,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <!-- <a target="_blank" href="https://icons8.com/icon/53382/home-page">Home Page</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> -->
-        <include layout="@layout/tab_layout"/>
+        <include
+            layout="@layout/tab_layout"
+            android:layout_height="37dp" />
 
     </LinearLayout>
 

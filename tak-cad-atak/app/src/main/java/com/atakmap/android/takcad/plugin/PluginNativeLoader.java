@@ -1,27 +1,7 @@
 
-/*
- *
- * TAK-CAD
- * Copyright (c) 2023 Raytheon Technologies
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see https://www.gnu.org/licenses/.
- * https://github.com/atapas/add-copyright.git
- *
- */
-
 package com.atakmap.android.takcad.plugin;
 
+import java.io.File;
 import android.content.Context;
 
 /**
@@ -50,6 +30,26 @@ public class PluginNativeLoader {
             }
 
         }
+    }
+
+    /**
+    * Security guidance from our recent audit:
+    * Pass an absolute path to System.load(). Avoid System.loadLibrary() because its behavior 
+    * depends upon its implementation which often relies on environmental features that can be 
+    * manipulated. Use only validated, sanitized absolute paths.
+    */
+
+    public static void loadLibrary(final String name) {
+        if (ndl != null) {
+            final String lib = ndl + File.separator
+                    + System.mapLibraryName(name);
+            if (new File(lib).exists()) {
+                System.load(lib);
+            }
+        } else {
+            throw new IllegalArgumentException("NativeLoader not initialized");
+        }
+
     }
 
 }

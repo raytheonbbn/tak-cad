@@ -3,13 +3,8 @@
 <plugin>
 
     <extension
-        type="transapps.maps.plugin.lifecycle.Lifecycle"
-        impl="com.atakmap.android.takcad.plugin.TakCadLifecycle"
-        singleton="true" />
-
-    <extension
-        type="transapps.maps.plugin.tool.ToolDescriptor"
-        impl="com.atakmap.android.takcad.plugin.TakCadTool"
+        type="gov.tak.api.plugin.IPlugin"
+        impl="com.atakmap.android.takcad.plugin.PluginTemplate"
         singleton="true" />
 
 </plugin>
