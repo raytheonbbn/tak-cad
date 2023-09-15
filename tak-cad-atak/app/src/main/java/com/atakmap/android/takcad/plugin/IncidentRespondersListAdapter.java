@@ -19,7 +19,7 @@
  *
  */
 
-package com.atakmap.android.takcad.receivers;
+package com.atakmap.android.takcad.plugin;
 
 import android.content.Context;
 import android.content.Intent;

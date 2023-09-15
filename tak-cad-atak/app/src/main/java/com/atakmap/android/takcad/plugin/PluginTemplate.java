@@ -39,7 +39,6 @@ import com.atakmap.android.takcad.point_entry.persistence.ShapeNameManager;
 import com.atakmap.android.takcad.point_entry.shapes.PointCreatorCustom;
 import com.atakmap.android.takcad.point_entry.shapes.ShapeCallback;
 import com.atakmap.android.takcad.point_entry.shapes.ShapeCreator;
-import com.atakmap.android.takcad.receivers.IncidentRespondersListAdapter;
 import com.atakmap.android.takcad.routing.DirectionsResponsePojos;
 import com.atakmap.android.takcad.routing.OpenRouteApiManager;
 import com.atakmap.android.takcad.routing.OpenRouteDirectionResponse;
@@ -453,6 +452,7 @@ public class PluginTemplate implements IPlugin {
         incidentTitle.setTextColor(WHITE);
         incidentTitle.setText(R.string.incident_title);
         EditText incidentTitleEntry = new EditText(pluginContext);
+        incidentTitleEntry.setTextColor(WHITE);
         incidentTitleEntry.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int
@@ -478,6 +478,7 @@ public class PluginTemplate implements IPlugin {
         incidentSummary.setTextColor(WHITE);
         incidentSummary.setText(R.string.incident_summary);
         EditText incidentSummaryEntry = new EditText(pluginContext);
+        incidentSummaryEntry.setTextColor(WHITE);
         incidentSummaryEntry.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int
