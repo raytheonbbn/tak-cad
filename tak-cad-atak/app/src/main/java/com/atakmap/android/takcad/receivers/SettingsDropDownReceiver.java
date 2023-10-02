@@ -24,6 +24,7 @@ package com.atakmap.android.takcad.receivers;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
@@ -87,11 +88,16 @@ public class SettingsDropDownReceiver extends TabbedDropDownReceiver implements
 
             EditText openApiKeyEditText = (EditText) templateView.findViewById(R.id.openApiKeyEditText);
             // Retrieve the saved value
-            Log.d(TAG, "Current open route key: " + OpenRouteApiManager.getInstance().getOpenRouteApiKey());
-            openApiKeyEditText.setText(OpenRouteApiManager.getInstance().getOpenRouteApiKey());
 
             TextView openApiKeyDisplay = (TextView) templateView.findViewById(R.id.orsApiKeyDisplay);
-            openApiKeyDisplay.setText(OpenRouteApiManager.getInstance().getOpenRouteApiKey());
+            if (!OpenRouteApiManager.getInstance().getOpenRouteApiKey().isEmpty()) {
+                openApiKeyDisplay.setText("API Key Set!");
+                openApiKeyDisplay.setTextColor(Color.GREEN);
+            } else {
+                openApiKeyDisplay.setText("API Key Not Set!");
+                openApiKeyDisplay.setTextColor(Color.RED);
+            }
+
 
 
             Button openApiKeyUpdateButton = (Button) templateView.findViewById(R.id.updateOpenApiKeyButton);
@@ -99,7 +105,8 @@ public class SettingsDropDownReceiver extends TabbedDropDownReceiver implements
                 @Override
                 public void onClick(View view) {
                     OpenRouteApiManager.getInstance().setOpenRouteApiKey(openApiKeyEditText.getText().toString());
-                    openApiKeyDisplay.setText(OpenRouteApiManager.getInstance().getOpenRouteApiKey());
+                    openApiKeyDisplay.setText("API Key Set!");
+                    openApiKeyDisplay.setTextColor(Color.GREEN);
                     MiscUtils.toast("Set Open Route API Key!");
                 }
             });
