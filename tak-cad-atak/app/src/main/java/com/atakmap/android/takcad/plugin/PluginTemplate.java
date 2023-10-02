@@ -685,12 +685,16 @@ public class PluginTemplate implements IPlugin {
         instantiateTabs(templateView);
 
         EditText openApiKeyEditText = (EditText) templateView.findViewById(R.id.openApiKeyEditText);
-        // Retrieve the saved value
-        Log.d(TAG, "Current open route key: " + OpenRouteApiManager.getInstance().getOpenRouteApiKey());
-        openApiKeyEditText.setText(OpenRouteApiManager.getInstance().getOpenRouteApiKey());
 
         TextView openApiKeyDisplay = (TextView) templateView.findViewById(R.id.orsApiKeyDisplay);
-        openApiKeyDisplay.setText(OpenRouteApiManager.getInstance().getOpenRouteApiKey());
+        if (!OpenRouteApiManager.getInstance().getOpenRouteApiKey().isEmpty()) {
+            openApiKeyDisplay.setText("API Key Set!");
+            openApiKeyDisplay.setTextColor(Color.GREEN);
+        } else {
+            openApiKeyDisplay.setText("API Key Not Set!");
+            openApiKeyDisplay.setTextColor(Color.RED);
+        }
+
 
 
         Button openApiKeyUpdateButton = (Button) templateView.findViewById(R.id.updateOpenApiKeyButton);
@@ -698,7 +702,8 @@ public class PluginTemplate implements IPlugin {
             @Override
             public void onClick(View view) {
                 OpenRouteApiManager.getInstance().setOpenRouteApiKey(openApiKeyEditText.getText().toString());
-                openApiKeyDisplay.setText(OpenRouteApiManager.getInstance().getOpenRouteApiKey());
+                openApiKeyDisplay.setText("API Key Set!");
+                openApiKeyDisplay.setTextColor(Color.GREEN);
                 MiscUtils.toast("Set Open Route API Key!");
             }
         });

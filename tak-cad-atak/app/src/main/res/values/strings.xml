@@ -12,5 +12,5 @@
     <string name="ors_api_key_entry_title">Open Route Service API Key:</string>
     <string name="shared_preferences_file_name">com.atakmap.android.takcad.SharedPreferences</string>
     <string name="ors_set_api_key_btn">Set Key</string>
-    <string name="ors_current_api_key">Current Open Route Service API Key:</string>
+    <string name="ors_current_api_key">Open Route Service API Key Status:</string>
 </resources>
