@@ -22,7 +22,7 @@
     <!-- Customize your other styles as needed -->
 
     <!-- Application theme. -->
-    <style name="ATAKPluginTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="ATAKPluginTheme" parent="Theme.AppCompat">
         <item name="android:textAppearanceLargePopupMenu">@style/PopupMenuTextAppearance</item>
         <item name="android:buttonStyle">@android:style/Widget.Button</item>
         <item name="android:imageButtonStyle">@android:style/Widget.Button</item>
@@ -34,7 +34,7 @@
     </style>
 
 
-    <style name="ATAKTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="ATAKTheme" parent="Theme.AppCompat">
 
         <!--
             Revert to old theme's buttons and spinner styles, since they match the colors and sizes
