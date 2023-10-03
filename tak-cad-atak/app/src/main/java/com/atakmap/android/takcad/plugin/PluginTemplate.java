@@ -359,7 +359,10 @@ public class PluginTemplate implements IPlugin {
                     responderInfo.directions = directions;
 
                     if (responderInfo.directions != null && responderInfo.directions.features != null && responderInfo.directions.features.get(0) != null) {
-                        IncidentResponderManager.getInstance().addResponderInfo(incidentId, responderInfo);
+                        if (IncidentResponderManager.getInstance().getIncidentInfo(incidentId) != null) {
+                            // only add the responder info if the incident info for the incident id isn't null
+                            IncidentResponderManager.getInstance().addResponderInfo(incidentId, responderInfo);
+                        }
                     }
 
                 }
