@@ -307,9 +307,10 @@ public class TakCadMapComponent extends DropDownMapComponent {
                 responderInfo.directions = directions;
 
                 if (responderInfo.directions != null && responderInfo.directions.features != null && responderInfo.directions.features.get(0) != null) {
-                    IncidentResponderManager.getInstance().addResponderInfo(incidentId, responderInfo);
+                    if (IncidentResponderManager.getInstance().getIncidentInfo(incidentId) != null) {
+                        IncidentResponderManager.getInstance().addResponderInfo(incidentId, responderInfo);
+                    }
                 }
-
             }
         });
 
