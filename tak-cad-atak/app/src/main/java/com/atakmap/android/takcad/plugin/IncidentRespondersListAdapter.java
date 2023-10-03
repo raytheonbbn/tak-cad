@@ -176,7 +176,12 @@ public class IncidentRespondersListAdapter extends BaseExpandableListAdapter {
                              View convertView, ViewGroup parent) {
         Log.d(TAG, "getGroupView: listPos=" + listPos + ", isExpanded=" + isExpanded);
         String incidentId = (String) getGroup(listPos);
-        String listTitle = IncidentResponderManager.getInstance().getIncidentInfo(incidentId).title;
+        Log.d(TAG, "incidentId: " + incidentId);
+        IncidentResponderManager.IncidentInfo incidentInfo = IncidentResponderManager.getInstance().getIncidentInfo(incidentId);
+        String listTitle = "INCIDENT_INFO_NOT_FOUND";
+        if (incidentInfo != null) {
+            listTitle = incidentInfo.title;
+        }
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
